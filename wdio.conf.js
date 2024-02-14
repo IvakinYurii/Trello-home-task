@@ -22,7 +22,7 @@ exports.config = {
   //
   specs: [
     //"./test/specs/**/*.js",
-    "./test/specs/signUp.js",
+    "./test/specs/signUp copy.js",
     //"./test/specs/signIn.js",
     //"./test/specs/editProfile.js",
     //"./test/specs/yourBoards.js",

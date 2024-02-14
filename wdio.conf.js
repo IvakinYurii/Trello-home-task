@@ -78,7 +78,6 @@ exports.config = {
         },
       },
     },
-
     /** 
     {
       browserName: "safari",

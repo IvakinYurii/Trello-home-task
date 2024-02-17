@@ -6,11 +6,11 @@ describe("User Sign Up", () => {
     await browser.url("https://temp-mail.io/en");
 
     if (browser.capabilities.browserName === "firefox") {
-      await browser.pause(2000);
+      await browser.pause(1000);
+      const newRandomName = await $("[data-qa='random-button']");
+      await newRandomName.waitForDisplayed();
+      await newRandomName.click();
     }
-
-    const newRandomName = await $("[data-qa='random-button']");
-    await newRandomName.click();
 
     const copyEmail = await $("[data-qa='copy-button']");
     await browser.pause(500);
@@ -33,11 +33,14 @@ describe("User Sign Up", () => {
 
     while (await error.isDisplayed()) {
       await signUpSubmit.click();
-      await browser.pause(1500);
+      await browser.pause(1200);
     }
 
     const success = await $("//h1[text()='Welcome to Trello!']");
-
-    await expect(success).toBeDisplayed();
+    await success.waitForDisplayed().catch(() => {});
+    assert(
+      await success.isDisplayed(),
+      "Welcome to Trello! message is not displayed"
+    );
   });
 });

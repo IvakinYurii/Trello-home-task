@@ -24,7 +24,7 @@ describe("Trello Board Functionality", () => {
 
     const boardName = await $("//h1[text()='My new board']");
 
-    await expect(boardName).toHaveText("My new board");
+    assert.strictEqual(await boardName.getText(), "My new board");
   });
 
   it("new card should be created within the list", async () => {
@@ -52,7 +52,7 @@ describe("Trello Board Functionality", () => {
       }
     }
 
-    await expect(isNewCardPresent).toBeTruthy();
+    isNewCardPresent.should.be.true;
   });
 
   it("new list should be created on the selected board", async () => {
@@ -70,8 +70,9 @@ describe("Trello Board Functionality", () => {
     await addListButton.click();
 
     const listName = await $("//h2[text()='New list']");
+    await listName.waitForDisplayed();
 
-    await expect(listName).toBeDisplayed();
+    await wdioExpect(listName).toBeDisplayed();
   });
 
   it("only the cards matching the criteria should be displayed", async () => {
@@ -85,6 +86,6 @@ describe("Trello Board Functionality", () => {
 
     const filteredMessage = await $(".e5LZFj7edvnuic");
 
-    await expect(filteredMessage).toBeDisplayed();
+    expect(await filteredMessage.isDisplayed()).to.equal(true);
   });
 });

@@ -19,7 +19,8 @@ describe("Edit User Profile", () => {
     await submitButton.click();
 
     const saveResult = await $("//span[text()='Saved']");
+    await saveResult.waitForDisplayed();
 
-    await expect(saveResult).toBeExisting();
+    expect(await saveResult.isDisplayed()).to.be.true;
   });
 });

@@ -16,6 +16,6 @@ describe("Search for a Board", () => {
     const searchResult = await $("span[name='My Trello board']");
     await searchResult.waitForDisplayed();
 
-    await expect(searchResult).toBeDisplayed();
+    (await searchResult.isDisplayed()).should.be.true;
   });
 });

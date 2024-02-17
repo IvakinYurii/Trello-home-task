@@ -57,6 +57,7 @@ exports.config = {
   capabilities: [
     {
       browserName: "chrome",
+      browserVersion: "122.0.6261.39",
 
       "goog:chromeOptions": {
         args: [
@@ -78,6 +79,7 @@ exports.config = {
         },
       },
     },
+
     /** 
     {
       browserName: "safari",
@@ -240,8 +242,16 @@ exports.config = {
   /**
    * Function to be executed before a test (in Mocha/Jasmine) starts.
    */
-  // beforeTest: function (test, context) {
-  // },
+  before: async () => {
+    await import("expect-webdriverio");
+    global.wdioExpect = global.expect;
+
+    const chai = await import("chai");
+
+    global.assert = chai.assert;
+    global.expect = chai.expect;
+    chai.Should();
+  },
   /**
    * Hook that gets executed _before_ a hook within the suite starts (e.g. runs before calling
    * beforeEach in Mocha)

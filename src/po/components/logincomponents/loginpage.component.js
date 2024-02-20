@@ -10,6 +10,8 @@ class LoginPageComponent {
   button(param) {
     const selectors = {
       submit: "#login-submit",
+      create: "#signup",
+      reset: "resetPassword",
     };
     return $(selectors[param]);
   }

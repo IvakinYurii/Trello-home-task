@@ -23,8 +23,8 @@ exports.config = {
   specs: [
     //"./../tests/**/*.js",
     //"./../tests/signUp.test.js",
-    "./../tests/signIn.test.js",
-    //"./../tests/editProfile.test.js",
+    //"./../tests/signIn.test.js",
+    "./../tests/editProfile.test.js",
     //"./../tests/yourBoards.test.js",
     //"./../tests/searchBar.test.js",
   ],
@@ -152,7 +152,7 @@ exports.config = {
 
   //
   // The number of times to retry the entire specfile when it fails as a whole
-  specFileRetries: 1,
+  specFileRetries: 0,
   //
   // Delay in seconds between the spec file retry attempts
   // specFileRetriesDelay: 0,

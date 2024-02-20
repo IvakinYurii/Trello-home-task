@@ -1,26 +1,29 @@
-const signInUser = require("../configs/signInUser.js");
+const SignInUser = require("../configs/signInUser.js");
+const SettingsPage = require("../po/pages/settings.page.js");
+
+const userSignIn = new SignInUser(browser);
+const settingsPage = new SettingsPage();
 
 describe("Edit User Profile", () => {
   before(async () => {
     await browser.maximizeWindow();
-    await signInUser(browser);
+    await userSignIn.signIn("ricago6218@giratex.com", "StrongPassword1234");
   });
 
   it("profile should be updated successfully", async () => {
-    await browser.url("https://trello.com/u/ricago6218/account");
+    await settingsPage.open();
 
-    const profileAndVisibility = await $("a[data-tab='profile']");
-    await profileAndVisibility.click();
+    await settingsPage.settingsComponent.menu("profile").click();
 
-    const bio = await $("#bio");
-    await bio.setValue("I love Trello boards");
+    await settingsPage.settingsComponent
+      .profileForm("bio")
+      .setValue("I love Trello boards");
 
-    const submitButton = await $("button[type='submit']");
-    await submitButton.click();
+    await settingsPage.settingsComponent.submitButton.click();
 
-    const saveResult = await $("//span[text()='Saved']");
-    await saveResult.waitForDisplayed();
+    await settingsPage.settingsComponent.submitResult.waitForDisplayed();
 
-    expect(await saveResult.isDisplayed()).to.be.true;
+    expect(await settingsPage.settingsComponent.submitResult.isDisplayed()).to
+      .be.true;
   });
 });

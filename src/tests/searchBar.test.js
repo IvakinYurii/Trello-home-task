@@ -1,21 +1,22 @@
-const signInUser = require("../configs/signInUser.js");
+const SignInUser = require("../configs/signInUser.js");
+const BoardsPage = require("../po/pages/boards.page.js");
+
+const userSignIn = new SignInUser(browser);
+const boardsPage = new BoardsPage();
 
 describe("Search for a Board", () => {
   before(async () => {
     await browser.maximizeWindow();
-    await signInUser(browser);
+    await userSignIn.signIn("ricago6218@giratex.com", "StrongPassword1234");
   });
 
   it("search results should display the board being searched for", async () => {
-    await browser.url("https://trello.com/u/ricago6218/boards");
+    await boardsPage.open();
 
-    const search = await $("input[placeholder='Search']");
-    await browser.pause(500);
-    await search.setValue("My Trello board");
+    await boardsPage.header.menu("searchBar").setValue("My Trello board");
 
-    const searchResult = await $("span[name='My Trello board']");
-    await searchResult.waitForDisplayed();
+    await boardsPage.searchResult.waitForDisplayed();
 
-    (await searchResult.isDisplayed()).should.be.true;
+    (await boardsPage.searchResult.isDisplayed()).should.be.true;
   });
 });

@@ -6,7 +6,7 @@ class HomePage {
   }
 
   async open() {
-    await browser.url("https://trello.com/home");
+    await browser.url("/home");
   }
 }
 

@@ -1,5 +1,5 @@
 async function closeBoards(browser) {
-  await browser.url("https://trello.com/b/E4N8IpFV/new-board");
+  await browser.url("/b/E4N8IpFV/new-board");
 
   const boardMenu = await $("[data-testid='open-boards-link']");
   await boardMenu.click();

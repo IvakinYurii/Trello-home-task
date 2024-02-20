@@ -24,9 +24,9 @@ exports.config = {
     //"./../tests/**/*.js",
     //"./../tests/signUp.test.js",
     //"./../tests/signIn.test.js",
-    "./../tests/editProfile.test.js",
+    //"./../tests/editProfile.test.js",
     //"./../tests/yourBoards.test.js",
-    //"./../tests/searchBar.test.js",
+    "./../tests/searchBar.test.js",
   ],
   // Patterns to exclude.
   exclude: [
@@ -124,7 +124,7 @@ exports.config = {
   // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
   // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
   // gets prepended directly.
-  baseUrl: "http://localhost",
+  baseUrl: "https://trello.com",
   //
   // Default timeout for all waitFor* commands.
   waitforTimeout: 10000,

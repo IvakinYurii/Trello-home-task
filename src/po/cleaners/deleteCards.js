@@ -1,6 +1,6 @@
 async function deleteCards(browser) {
   try {
-    await browser.url("https://trello.com/b/E4N8IpFV/new-board");
+    await browser.url("/b/E4N8IpFV/new-board");
 
     const newCard = $("//a[text()='New card']");
     await newCard.waitForExist({ timeout: 5000 });

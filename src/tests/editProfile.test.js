@@ -1,4 +1,4 @@
-const signInUser = require("../../signInUser.js");
+const signInUser = require("../configs/signInUser.js");
 
 describe("Edit User Profile", () => {
   before(async () => {

@@ -1,4 +1,4 @@
-const signInUser = require("../../signInUser.js");
+const signInUser = require("../configs/signInUser.js");
 
 describe("Search for a Board", () => {
   before(async () => {

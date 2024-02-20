@@ -1,7 +1,7 @@
-const signInUser = require("../../signInUser.js");
-const closeBoards = require("../../closeBoards");
-const deleteCards = require("../../deleteCards");
-const deleteLists = require("../../deleteLists");
+const signInUser = require("../configs/signInUser.js");
+const closeBoards = require("../po/cleaners/closeBoards.js");
+const deleteCards = require("../po/cleaners/deleteCards.js");
+const deleteLists = require("../po/cleaners/deleteLists.js");
 
 describe("Trello Board Functionality", () => {
   before(async () => {

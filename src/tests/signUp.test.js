@@ -38,6 +38,7 @@ describe("User Sign Up", () => {
 
     const success = await $("//h1[text()='Welcome to Trello!']");
     await success.waitForDisplayed().catch(() => {});
+
     assert(
       await success.isDisplayed(),
       "Welcome to Trello! message is not displayed"

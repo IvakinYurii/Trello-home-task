@@ -22,11 +22,11 @@ exports.config = {
   //
   specs: [
     //"./../tests/**/*.js",
-    //"./../tests/signUp.js",
-    //"./../tests/signIn.js",
-    //"./../tests/editProfile.js",
-    "./../tests/yourBoards.js",
-    //"./../tests/searchBar.js",
+    //"./../tests/signUp.test.js",
+    "./../tests/signIn.test.js",
+    //"./../tests/editProfile.test.js",
+    //"./../tests/yourBoards.test.js",
+    //"./../tests/searchBar.test.js",
   ],
   // Patterns to exclude.
   exclude: [

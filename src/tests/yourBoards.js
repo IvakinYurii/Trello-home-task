@@ -1,9 +1,15 @@
 const signInUser = require("../../signInUser.js");
+const closeBoards = require("../../closeBoards");
+const deleteCards = require("../../deleteCards");
+const deleteLists = require("../../deleteLists");
 
 describe("Trello Board Functionality", () => {
   before(async () => {
     await browser.maximizeWindow();
     await signInUser(browser);
+    await closeBoards(browser);
+    await deleteCards(browser);
+    await deleteLists(browser);
   });
 
   it("new board should be created and displayed on your boards", async () => {

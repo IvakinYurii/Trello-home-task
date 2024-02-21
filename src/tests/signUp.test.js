@@ -1,46 +1,50 @@
 const { Key } = require("webdriverio");
+const TempMailPage = require("../po/pages/tempmail.page");
+const HomePage = require("../po/pages/home.page");
+const SignUpPage = require("../po/pages/signup.page");
+
+const tempMailPage = new TempMailPage();
+const homePage = new HomePage();
+const signUpPage = new SignUpPage();
 
 describe("User Sign Up", () => {
   it("should be successfully registered", async () => {
-    await browser.maximizeWindow();
-    await browser.url("https://temp-mail.io/en");
+    await tempMailPage.open();
 
     if (browser.capabilities.browserName === "firefox") {
       await browser.pause(1000);
-      const newRandomName = await $("[data-qa='random-button']");
-      await newRandomName.waitForDisplayed();
-      await newRandomName.click();
+      await tempMailPage.headerComponent.button("random").waitForDisplayed();
+      await tempMailPage.headerComponent.button("random").click();
     }
 
-    const copyEmail = await $("[data-qa='copy-button']");
-    await browser.pause(500);
-    await copyEmail.click();
+    await tempMailPage.headerComponent.button("copy").click();
 
-    await browser.url("https://trello.com/home");
+    await homePage.open();
 
-    const getTrello = await $("//a[text()='Get Trello for free']");
-    await getTrello.click();
+    await homePage.homeComponent.button("signUp").click();
 
-    const emailInput = await $("#email");
-    await emailInput.click();
+    await signUpPage.signUpComponent.mailInput.click();
     await browser.keys([Key.Ctrl, "v"]);
 
-    const signUpSubmit = await $("#signup-submit");
-    await signUpSubmit.click();
+    await signUpPage.signUpComponent.submitButton.click();
 
-    const error = await $("[data-testid='form-error']");
-    await error.waitForDisplayed().catch(() => {});
+    await signUpPage.signUpComponent
+      .message("error")
+      .waitForDisplayed()
+      .catch(() => {});
 
-    while (await error.isDisplayed()) {
-      await signUpSubmit.click();
+    while (await signUpPage.signUpComponent.message("error").isDisplayed()) {
+      await signUpPage.signUpComponent.submitButton.click();
       await browser.pause(1200);
     }
 
-    const success = await $("//h1[text()='Welcome to Trello!']");
-    await success.waitForDisplayed().catch(() => {});
+    await signUpPage.signUpComponent
+      .message("success")
+      .waitForDisplayed()
+      .catch(() => {});
 
     assert(
-      await success.isDisplayed(),
+      await signUpPage.signUpComponent.message("success").isDisplayed(),
       "Welcome to Trello! message is not displayed"
     );
   });

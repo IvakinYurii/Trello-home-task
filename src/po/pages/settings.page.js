@@ -6,7 +6,7 @@ class SettingsPage {
   }
 
   async open() {
-    await browser.url("https://trello.com/u/ricago6218/account");
+    await browser.url("/u/ricago6218/account");
   }
 }
 

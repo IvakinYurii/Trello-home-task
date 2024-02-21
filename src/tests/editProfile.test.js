@@ -6,7 +6,6 @@ const settingsPage = new SettingsPage();
 
 describe("Edit User Profile", () => {
   before(async () => {
-    await browser.maximizeWindow();
     await userSignIn.signIn("ricago6218@giratex.com", "StrongPassword1234");
   });
 

@@ -22,11 +22,11 @@ exports.config = {
   //
   specs: [
     //"./../tests/**/*.js",
-    //"./../tests/signUp.test.js",
+    "./../tests/signUp.test.js",
     //"./../tests/signIn.test.js",
     //"./../tests/editProfile.test.js",
     //"./../tests/yourBoards.test.js",
-    "./../tests/searchBar.test.js",
+    //"./../tests/searchBar.test.js",
   ],
   // Patterns to exclude.
   exclude: [
@@ -251,6 +251,8 @@ exports.config = {
     global.assert = chai.assert;
     global.expect = chai.expect;
     chai.Should();
+
+    await browser.maximizeWindow();
   },
   /**
    * Hook that gets executed _before_ a hook within the suite starts (e.g. runs before calling

@@ -5,7 +5,6 @@ const deleteLists = require("../po/cleaners/deleteLists.js");
 
 describe("Trello Board Functionality", () => {
   before(async () => {
-    await browser.maximizeWindow();
     await signInUser(browser);
     await closeBoards(browser);
     await deleteCards(browser);

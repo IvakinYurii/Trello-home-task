@@ -6,7 +6,6 @@ const boardsPage = new BoardsPage();
 
 describe("Search for a Board", () => {
   before(async () => {
-    await browser.maximizeWindow();
     await userSignIn.signIn("ricago6218@giratex.com", "StrongPassword1234");
   });
 

@@ -10,7 +10,7 @@ class SignInUser {
 
   async signIn(login, password) {
     await this.homePage.open();
-    await this.homePage.homeComponent.button("logInButton").click();
+    await this.homePage.homeComponent.button("logIn").click();
     await this.loginPage.signIn(login, password);
     await this.loginPage.getUrl("https://trello.com/u/ricago6218/boards");
   }

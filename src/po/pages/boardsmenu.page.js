@@ -1,16 +1,14 @@
+const BoardsMenuComponent = require("../components/boardsmenucomponents/boardsmenu.component");
 const HeaderComponent = require("../components/common/header.component");
 
-class BoardsPage {
+class BoardsMenuPage {
   constructor() {
     this.header = new HeaderComponent();
+    this.board = new BoardsMenuComponent();
   }
   async open() {
     await browser.url("/u/ricago6218/boards");
   }
-
-  get searchResult() {
-    return $("span[name='My Trello board']");
-  }
 }
 
-module.exports = BoardsPage;
+module.exports = BoardsMenuPage;

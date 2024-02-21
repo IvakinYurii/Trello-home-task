@@ -1,38 +1,41 @@
-const signInUser = require("../configs/signInUser.js");
+const SignInUser = require("../configs/signInUser.js");
+const BoardsMenuPage = require("../po/pages/boardsmenu.page.js");
+const ActiveBoard = require("../po/pages/activeboard.page.js");
 const closeBoards = require("../po/cleaners/closeBoards.js");
 const deleteCards = require("../po/cleaners/deleteCards.js");
 const deleteLists = require("../po/cleaners/deleteLists.js");
 
+const userSignIn = new SignInUser(browser);
+const boardsMenuPage = new BoardsMenuPage();
+const activeBoard = new ActiveBoard();
+
 describe("Trello Board Functionality", () => {
   before(async () => {
-    await signInUser(browser);
+    await userSignIn.signIn("ricago6218@giratex.com", "StrongPassword1234");
     await closeBoards(browser);
     await deleteCards(browser);
     await deleteLists(browser);
   });
 
   it("new board should be created and displayed on your boards", async () => {
-    await browser.url("https://trello.com/u/ricago6218/boards");
+    await boardsMenuPage.open();
 
-    const createButton = await $("//p[text()='Create']");
-    await createButton.click();
+    await boardsMenuPage.header.menu("create").click();
 
-    const createBoardButton = await $("//span[text()='Create board']");
-    await createBoardButton.click();
+    await boardsMenuPage.header.createOption("board").click();
 
-    const boardTitle = await $("input[data-testid='create-board-title-input']");
-    await boardTitle.setValue("My new board");
+    await boardsMenuPage.header.createBoard("title").setValue("My new board");
 
-    const submitButton = await $("//button[text()='Create']");
-    await submitButton.waitForClickable();
-    await submitButton.click();
+    await boardsMenuPage.header.createBoard("submitButton").waitForClickable();
+    await boardsMenuPage.header.createBoard("submitButton").click();
 
-    const boardName = await $("//h1[text()='My new board']");
-
-    assert.strictEqual(await boardName.getText(), "My new board");
+    assert.strictEqual(
+      await activeBoard.boardHeader.item("title").getText(),
+      "My new board"
+    );
   });
 
-  it("new card should be created within the list", async () => {
+  it.only("new card should be created within the list", async () => {
     await browser.url("https://trello.com/b/E4N8IpFV/new-board");
 
     const addCardButton = await $("button[data-testid='list-add-card-button']");

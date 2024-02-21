@@ -3,7 +3,7 @@ async function deleteCards(browser) {
     await browser.url("/b/E4N8IpFV/new-board");
 
     const newCard = $("//a[text()='New card']");
-    await newCard.waitForExist({ timeout: 5000 });
+    await newCard.waitForExist({ timeout: 2000 });
 
     while (await newCard.isDisplayed()) {
       await newCard.click();

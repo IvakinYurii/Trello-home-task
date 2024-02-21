@@ -1,8 +1,8 @@
 const SignInUser = require("../configs/signInUser.js");
-const BoardsPage = require("../po/pages/boards.page.js");
+const BoardsMenuPage = require("../po/pages/boardsmenu.page.js");
 
 const userSignIn = new SignInUser(browser);
-const boardsPage = new BoardsPage();
+const boardsMenuPage = new BoardsMenuPage();
 
 describe("Search for a Board", () => {
   before(async () => {
@@ -10,12 +10,12 @@ describe("Search for a Board", () => {
   });
 
   it("search results should display the board being searched for", async () => {
-    await boardsPage.open();
+    await boardsMenuPage.open();
 
-    await boardsPage.header.menu("searchBar").setValue("My Trello board");
+    await boardsMenuPage.header.menu("searchBar").setValue("My Trello board");
 
-    await boardsPage.searchResult.waitForDisplayed();
+    await boardsMenuPage.header.searchResult.waitForDisplayed();
 
-    (await boardsPage.searchResult.isDisplayed()).should.be.true;
+    (await boardsMenuPage.header.searchResult.isDisplayed()).should.be.true;
   });
 });

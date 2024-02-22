@@ -44,34 +44,30 @@ describe("Trello Board Functionality", () => {
 
     await activeBoard.boardBody.createCard("title").setValue("New card");
 
-    await activeBoard.boardBody.createCard("submitButton").click();
+    await activeBoard.boardBody.createCard("addCardButton").click();
 
     const isNewCardPresent = await activeBoard.isNewCardPresent("New card");
 
     isNewCardPresent.should.be.true;
   });
 
-  it.only("new list should be created on the selected board", async () => {
-    await browser.url("https://trello.com/b/E4N8IpFV/new-board");
+  it("new list should be created on the selected board", async () => {
+    await boardsMenuPage.open();
 
-    const listButton = await $("button[data-testid='list-composer-button']");
-    await listButton.click();
+    await boardsMenuPage.board.selectBoard("newBoard").click();
 
-    const listTitle = await $("textarea[name='Enter list title…']");
-    await listTitle.setValue("New list");
+    await activeBoard.boardBody.button("addList").click();
 
-    const addListButton = await $(
-      "button[data-testid='list-composer-add-list-button']"
-    );
-    await addListButton.click();
+    await activeBoard.boardBody.createList("title").setValue("New list");
 
-    const listName = await $("//h2[text()='New list']");
-    await listName.waitForDisplayed();
+    await activeBoard.boardBody.createList("addListButton").click();
+
+    const listName = await activeBoard.getListByName("New list");
 
     await wdioExpect(listName).toBeDisplayed();
   });
 
-  it("only the cards matching the criteria should be displayed", async () => {
+  it.only("only the cards matching the criteria should be displayed", async () => {
     await browser.url("https://trello.com/b/Cm4a9v9y/my-trello-board");
 
     const filterButton = await $("button[data-testid='filter-popover-button']");

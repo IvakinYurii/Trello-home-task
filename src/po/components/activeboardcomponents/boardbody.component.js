@@ -10,8 +10,17 @@ class BoardBody {
   createCard(param) {
     const selectors = {
       title: "textarea[data-testid='list-card-composer-textarea']",
-      submitButton: "button[type='submit']",
+      addCardButton: "button[type='submit']",
       cancel: "[aria-label='Cancel']",
+    };
+    return $(selectors[param]);
+  }
+
+  createList(param) {
+    const selectors = {
+      title: "[name='Enter list title…']",
+      addListButton: "button[data-testid='list-composer-add-list-button']",
+      cancel: "[aria-label='Cancel list editing']",
     };
     return $(selectors[param]);
   }

@@ -18,6 +18,10 @@ class ActiveBoard {
     }
     return isNewCardPresent;
   }
+
+  async getListByName(listName) {
+    return $(`//h2[text()='${listName}']`);
+  }
 }
 
 module.exports = ActiveBoard;

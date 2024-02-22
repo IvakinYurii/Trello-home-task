@@ -2,8 +2,7 @@ const HomePage = require("./../po/pages/home.page");
 const LoginPage = require("./../po/pages/login.page");
 
 class SignInUser {
-  constructor(browser) {
-    this.browser = browser;
+  constructor() {
     this.homePage = new HomePage();
     this.loginPage = new LoginPage();
   }

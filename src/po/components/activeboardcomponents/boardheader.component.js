@@ -18,6 +18,21 @@ class BoardHeader {
     };
     return $(selectors[param]);
   }
+
+  menuOption(param) {
+    const selectors = {
+      watch: ".js-board-subscribe",
+      copy: ".js-copy-board",
+      emailToBoard: ".js-email",
+      share: ".js-share",
+      close: ".js-close-board",
+    };
+    return $(selectors[param]);
+  }
+
+  get submitCloseButton() {
+    return $(".js-confirm");
+  }
 }
 
 module.exports = BoardHeader;

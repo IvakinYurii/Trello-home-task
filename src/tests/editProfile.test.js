@@ -1,7 +1,7 @@
 const SignInUser = require("../configs/signInUser.js");
 const SettingsPage = require("../po/pages/settings.page.js");
 
-const userSignIn = new SignInUser(browser);
+const userSignIn = new SignInUser();
 const settingsPage = new SettingsPage();
 
 describe("Edit User Profile", () => {

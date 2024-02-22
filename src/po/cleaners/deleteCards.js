@@ -1,4 +1,4 @@
-async function deleteCards(browser) {
+async function deleteCards() {
   try {
     await browser.url("/b/E4N8IpFV/new-board");
 

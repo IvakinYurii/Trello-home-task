@@ -5,16 +5,16 @@ const closeBoards = require("../po/cleaners/closeBoards.js");
 const deleteCards = require("../po/cleaners/deleteCards.js");
 const deleteLists = require("../po/cleaners/deleteLists.js");
 
-const userSignIn = new SignInUser(browser);
+const userSignIn = new SignInUser();
 const boardsMenuPage = new BoardsMenuPage();
 const activeBoard = new ActiveBoard();
 
 describe("Trello Board Functionality", () => {
   before(async () => {
     await userSignIn.signIn("ricago6218@giratex.com", "StrongPassword1234");
-    await closeBoards(browser);
-    await deleteCards(browser);
-    await deleteLists(browser);
+    await closeBoards();
+    await deleteCards();
+    await deleteLists();
   });
 
   it("new board should be created and displayed on your boards", async () => {

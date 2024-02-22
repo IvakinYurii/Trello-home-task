@@ -1,31 +1,30 @@
-async function closeBoards(browser) {
+const ActiveBoard = require("../pages/activeboard.page");
+const BoardsMenuPage = require("../pages/boardsmenu.page");
+
+const boardsMenuPage = new BoardsMenuPage();
+const activeBoard = new ActiveBoard();
+
+async function closeBoards() {
   try {
-    await browser.url("/b/E4N8IpFV/new-board");
+    await boardsMenuPage.open();
 
-    const boardMenu = await $("[data-testid='open-boards-link']");
-    await boardMenu.click();
+    await boardsMenuPage.board
+      .selectBoard("myNewBoard")
+      .waitForDisplayed({ timeout: 2000 });
 
-    const newBoard = await $(
-      ".boards-page-board-section-list [title='My new board']"
-    );
-    await newBoard.waitForDisplayed({ timeout: 2000 });
+    while (await boardsMenuPage.board.selectBoard("myNewBoard").isDisplayed()) {
+      await boardsMenuPage.board.selectBoard("myNewBoard").click();
 
-    while (await newBoard.isDisplayed()) {
-      await newBoard.click();
+      await activeBoard.boardHeader
+        .item("menu")
+        .click()
+        .catch(() => {});
 
-      const menuBtn = await $("button[aria-label='Show menu']");
-      await menuBtn.waitForClickable();
-      await menuBtn.click();
+      await activeBoard.boardHeader.menuOption("close").click();
 
-      const closeBoard = await $(".js-close-board");
-      await closeBoard.click();
+      await activeBoard.boardHeader.submitCloseButton.click();
 
-      const closeConfirm = await $(".js-confirm");
-      await closeConfirm.click();
-
-      await browser.pause(500);
-
-      await boardMenu.click();
+      await boardsMenuPage.open();
     }
   } catch (error) {
     console.error("Error occurred while closing boards:", error);

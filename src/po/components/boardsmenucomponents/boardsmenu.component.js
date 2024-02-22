@@ -1,6 +1,6 @@
 class BoardsMenuComponent {
   get boardList() {
-    return $(".boards-page-board-section-list");
+    return $(".boards-page-board-section.mod-no-sidebar:nth-child(2)");
   }
 
   selectBoard(param) {

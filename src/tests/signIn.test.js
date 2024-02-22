@@ -1,6 +1,6 @@
 const SignInUser = require("../configs/signInUser.js");
 
-const userSignIn = new SignInUser(browser);
+const userSignIn = new SignInUser();
 
 describe("User Sign In", () => {
   it("should be redirected to the Trello Workspace", async () => {

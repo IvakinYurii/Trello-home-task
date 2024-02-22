@@ -1,5 +1,5 @@
-async function deleteLists(browser) {
-  await browser.url("https://trello.com/b/E4N8IpFV/new-board");
+async function deleteLists() {
+  await browser.url("/b/E4N8IpFV/new-board");
   try {
     const newList = await $("//h2[text()='New list']");
     await newList.waitForDisplayed({ timeout: 2000 });

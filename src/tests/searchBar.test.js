@@ -1,7 +1,7 @@
 const SignInUser = require("../configs/signInUser.js");
 const BoardsMenuPage = require("../po/pages/boardsmenu.page.js");
 
-const userSignIn = new SignInUser(browser);
+const userSignIn = new SignInUser();
 const boardsMenuPage = new BoardsMenuPage();
 
 describe("Search for a Board", () => {

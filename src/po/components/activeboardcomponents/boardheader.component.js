@@ -7,6 +7,17 @@ class BoardHeader {
     };
     return $(selectors[param]);
   }
+
+  filterOption(param) {
+    const selectors = {
+      noMembers: "[title='No members']",
+      cardsAssignedToMe: "[title='Cards assigned to me']",
+      noDates: "[title='No dates']",
+      overdue: "[title='Overdue']",
+      dueInTheNextDay: "[title='Due in the next day']",
+    };
+    return $(selectors[param]);
+  }
 }
 
 module.exports = BoardHeader;

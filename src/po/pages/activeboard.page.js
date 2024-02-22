@@ -22,6 +22,20 @@ class ActiveBoard {
   async getListByName(listName) {
     return $(`//h2[text()='${listName}']`);
   }
+
+  async isFilterCardDisplayed() {
+    const filteredMessages = await $$(".e5LZFj7edvnuic");
+    let counter = 0;
+
+    for (const message of await filteredMessages) {
+      const messageText = await message.getText();
+      const firstChar = messageText.charAt(0);
+      const count = parseInt(firstChar);
+      counter += count;
+    }
+
+    return counter > 0;
+  }
 }
 
 module.exports = ActiveBoard;

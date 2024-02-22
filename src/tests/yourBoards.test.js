@@ -67,17 +67,17 @@ describe("Trello Board Functionality", () => {
     await wdioExpect(listName).toBeDisplayed();
   });
 
-  it.only("only the cards matching the criteria should be displayed", async () => {
-    await browser.url("https://trello.com/b/Cm4a9v9y/my-trello-board");
+  it("cards matching the criteria should be displayed", async () => {
+    await boardsMenuPage.open();
 
-    const filterButton = await $("button[data-testid='filter-popover-button']");
-    await filterButton.click();
+    await boardsMenuPage.board.selectBoard("myTrelloBoard").click();
 
-    const filterOption = await $("div[title='Cards assigned to me']");
-    await filterOption.click();
+    await activeBoard.boardHeader.item("filters").click();
 
-    const filteredMessage = await $(".e5LZFj7edvnuic");
+    await activeBoard.boardHeader.filterOption("cardsAssignedToMe").click();
 
-    expect(await filteredMessage.isDisplayed()).to.equal(true);
+    const filteredCard = await activeBoard.isFilterCardDisplayed();
+
+    expect(await filteredCard).to.equal(true);
   });
 });

@@ -1,14 +1,15 @@
 class BoardsMenuComponent {
-  get rootEl() {
-    return $(".boards-page-section-header-name");
+  get boardList() {
+    return $(".boards-page-board-section-list");
   }
-  activeBoard(param) {
+
+  selectBoard(param) {
     const selectors = {
       myNewBoard: "[title='My new board']",
       newBoard: "[title='New Board']",
       myTrelloBoard: "[title='My Trello board']",
     };
-    return this.rootEl.$(selectors[param]);
+    return this.boardList.$(selectors[param]);
   }
 }
 

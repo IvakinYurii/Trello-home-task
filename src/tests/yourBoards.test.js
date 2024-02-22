@@ -35,35 +35,23 @@ describe("Trello Board Functionality", () => {
     );
   });
 
-  it.only("new card should be created within the list", async () => {
-    await browser.url("https://trello.com/b/E4N8IpFV/new-board");
+  it("new card should be created within the list", async () => {
+    await boardsMenuPage.open();
 
-    const addCardButton = await $("button[data-testid='list-add-card-button']");
-    await addCardButton.click();
+    await boardsMenuPage.board.selectBoard("newBoard").click();
 
-    const cardTitle = await $(
-      "textarea[data-testid='list-card-composer-textarea']"
-    );
-    await cardTitle.setValue("New card");
+    await activeBoard.boardBody.button("addCard").click();
 
-    const submitButton = await $("button[type='submit']");
-    await submitButton.click();
+    await activeBoard.boardBody.createCard("title").setValue("New card");
 
-    const cardNames = await $$("a[data-testid='card-name']");
+    await activeBoard.boardBody.createCard("submitButton").click();
 
-    let isNewCardPresent = false;
-    for (const cardName of cardNames) {
-      const cardText = await cardName.getText();
-      if (cardText === "New card") {
-        isNewCardPresent = true;
-        break;
-      }
-    }
+    const isNewCardPresent = await activeBoard.isNewCardPresent("New card");
 
     isNewCardPresent.should.be.true;
   });
 
-  it("new list should be created on the selected board", async () => {
+  it.only("new list should be created on the selected board", async () => {
     await browser.url("https://trello.com/b/E4N8IpFV/new-board");
 
     const listButton = await $("button[data-testid='list-composer-button']");

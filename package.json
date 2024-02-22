@@ -10,10 +10,10 @@
   "license": "ISC",
   "keywords": [],
   "devDependencies": {
-    "@wdio/cli": "^8.29.3",
-    "@wdio/local-runner": "^8.29.5",
-    "@wdio/mocha-framework": "^8.29.3",
-    "@wdio/spec-reporter": "^8.29.3",
+    "@wdio/cli": "^8.32.3",
+    "@wdio/local-runner": "^8.32.3",
+    "@wdio/mocha-framework": "^8.32.3",
+    "@wdio/spec-reporter": "^8.32.2",
     "chai": "^5.1.0",
     "expect-webdriverio": "^4.11.8"
   }

@@ -6,18 +6,18 @@ class CloseBoards {
     this.boardsMenuPage = new BoardsMenuPage();
     this.activeBoard = new ActiveBoard();
   }
-  async close() {
+  async close(boardName) {
     try {
       await this.boardsMenuPage.open();
 
       await this.boardsMenuPage.board
-        .selectBoard("myNewBoard")
+        .selectBoard(boardName)
         .waitForDisplayed({ timeout: 1000 });
 
       while (
-        await this.boardsMenuPage.board.selectBoard("myNewBoard").isDisplayed()
+        await this.boardsMenuPage.board.selectBoard(boardName).isDisplayed()
       ) {
-        await this.boardsMenuPage.board.selectBoard("myNewBoard").click();
+        await this.boardsMenuPage.board.selectBoard(boardName).click();
 
         await this.activeBoard.boardHeader
           .item("menu")

@@ -1,27 +1,34 @@
-async function deleteCards() {
-  try {
-    await browser.url("/b/E4N8IpFV/new-board");
+const ActiveBoard = require("../pages/activeboard.page");
+const BoardsMenuPage = require("../pages/boardsmenu.page");
 
-    const newCard = $("//a[text()='New card']");
-    await newCard.waitForExist({ timeout: 2000 });
+class DeleteCards {
+  constructor() {
+    this.boardsMenuPage = new BoardsMenuPage();
+    this.activeBoard = new ActiveBoard();
+  }
 
-    while (await newCard.isDisplayed()) {
-      await newCard.click();
+  async delete(cardName) {
+    try {
+      await boardsMenuPage.open();
 
-      const archive = await $(".js-archive-card");
-      await archive.click();
+      await boardsMenuPage.board.selectBoard("newBoard").click();
 
-      const deleteCard = await $(".js-delete-card");
-      await deleteCard.click();
+      const newCard = await activeBoard.selectCard(cardName);
+      await newCard.waitForDisplayed({ timeout: 2000 });
 
-      const submitBtn = await $(".js-confirm.nch-button");
-      await submitBtn.click();
+      while (await activeBoard.isNewCardPresent(cardName)) {
+        await newCard.click();
 
-      await browser.pause(500);
+        await activeBoard.boardBody.cardAction("archive").click();
+        await activeBoard.boardBody.cardAction("deleteCard").click();
+        await activeBoard.boardBody.cardAction("submitButton").click();
+
+        await browser.pause(500);
+      }
+    } catch (error) {
+      console.error("Error deleting cards:", error);
     }
-  } catch (error) {
-    console.error("Error deleting cards:", error);
   }
 }
 
-module.exports = deleteCards;
+module.exports = DeleteCards;

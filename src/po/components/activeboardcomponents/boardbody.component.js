@@ -25,6 +25,15 @@ class BoardBody {
     return $(selectors[param]);
   }
 
+  cardAction(param) {
+    const selectors = {
+      archive: ".js-archive-card",
+      deleteCard: ".js-delete-card",
+      submitButton: ".js-confirm.nch-button",
+    };
+    return $(selectors[param]);
+  }
+
   get cardNames() {
     return $$("a[data-testid='card-name']");
   }

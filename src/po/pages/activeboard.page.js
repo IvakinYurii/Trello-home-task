@@ -36,6 +36,10 @@ class ActiveBoard {
 
     return counter > 0;
   }
+
+  async selectCard(cardName) {
+    return $(`//a[@data-testid='card-name'][text()='${cardName}']`);
+  }
 }
 
 module.exports = ActiveBoard;

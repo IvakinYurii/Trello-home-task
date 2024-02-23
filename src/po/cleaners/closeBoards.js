@@ -1,34 +1,39 @@
 const ActiveBoard = require("../pages/activeboard.page");
 const BoardsMenuPage = require("../pages/boardsmenu.page");
 
-const boardsMenuPage = new BoardsMenuPage();
-const activeBoard = new ActiveBoard();
+class CloseBoards {
+  constructor() {
+    this.boardsMenuPage = new BoardsMenuPage();
+    this.activeBoard = new ActiveBoard();
+  }
+  async close() {
+    try {
+      await this.boardsMenuPage.open();
 
-async function closeBoards() {
-  try {
-    await boardsMenuPage.open();
+      await this.boardsMenuPage.board
+        .selectBoard("myNewBoard")
+        .waitForDisplayed({ timeout: 1000 });
 
-    await boardsMenuPage.board
-      .selectBoard("myNewBoard")
-      .waitForDisplayed({ timeout: 2000 });
+      while (
+        await this.boardsMenuPage.board.selectBoard("myNewBoard").isDisplayed()
+      ) {
+        await this.boardsMenuPage.board.selectBoard("myNewBoard").click();
 
-    while (await boardsMenuPage.board.selectBoard("myNewBoard").isDisplayed()) {
-      await boardsMenuPage.board.selectBoard("myNewBoard").click();
+        await this.activeBoard.boardHeader
+          .item("menu")
+          .click()
+          .catch(() => {});
 
-      await activeBoard.boardHeader
-        .item("menu")
-        .click()
-        .catch(() => {});
+        await this.activeBoard.boardHeader.menuOption("close").click();
 
-      await activeBoard.boardHeader.menuOption("close").click();
+        await this.activeBoard.boardHeader.submitCloseButton.click();
 
-      await activeBoard.boardHeader.submitCloseButton.click();
-
-      await boardsMenuPage.open();
+        await this.boardsMenuPage.open();
+      }
+    } catch (error) {
+      console.error("Error occurred while closing boards:", error);
     }
-  } catch (error) {
-    console.error("Error occurred while closing boards:", error);
   }
 }
 
-module.exports = closeBoards;
+module.exports = CloseBoards;

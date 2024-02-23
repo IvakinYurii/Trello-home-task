@@ -37,6 +37,10 @@ class BoardBody {
   get cardNames() {
     return $$("a[data-testid='card-name']");
   }
+
+  get closeListButton() {
+    return $(".js-close-list");
+  }
 }
 
 module.exports = BoardBody;

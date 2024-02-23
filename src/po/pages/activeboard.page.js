@@ -40,6 +40,12 @@ class ActiveBoard {
   async selectCard(cardName) {
     return $(`//a[@data-testid='card-name'][text()='${cardName}']`);
   }
+
+  async getListActions(listName) {
+    return $(
+      `//div[@data-testid='list-header'][.//h2[text()='${listName}']]//button[@data-testid='list-edit-menu-button']`
+    );
+  }
 }
 
 module.exports = ActiveBoard;

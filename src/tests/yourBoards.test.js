@@ -3,23 +3,24 @@ const BoardsMenuPage = require("../po/pages/boardsmenu.page.js");
 const ActiveBoard = require("../po/pages/activeboard.page.js");
 const CloseBoards = require("../po/cleaners/closeBoards.js");
 const DeleteCards = require("../po/cleaners/deleteCards.js");
-const deleteLists = require("../po/cleaners/deleteLists.js");
+const DeleteLists = require("../po/cleaners/deleteLists.js");
 
 const userSignIn = new SignInUser();
 const boardsMenuPage = new BoardsMenuPage();
 const activeBoard = new ActiveBoard();
 const closeBoards = new CloseBoards();
 const deleteCards = new DeleteCards();
+const deleteLists = new DeleteLists();
 
 describe("Trello Board Functionality", () => {
   before(async () => {
     await userSignIn.signIn("ricago6218@giratex.com", "StrongPassword1234");
     await closeBoards.close("myNewBoard");
-    await deleteCards.delete("New card");
-    await deleteLists();
+    await deleteCards.delete("newBoard", "New card");
+    await deleteLists.delete("newBoard", "New list");
   });
 
-  it.only("new board should be created and displayed on your boards", async () => {
+  it("new board should be created and displayed on your boards", async () => {
     await boardsMenuPage.open();
 
     await boardsMenuPage.header.menu("create").click();

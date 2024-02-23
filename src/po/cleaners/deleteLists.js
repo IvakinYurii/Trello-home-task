@@ -1,25 +1,34 @@
-async function deleteLists() {
-  await browser.url("/b/E4N8IpFV/new-board");
-  try {
-    const newList = await $("//h2[text()='New list']");
-    await newList.waitForDisplayed({ timeout: 2000 });
+const ActiveBoard = require("../pages/activeboard.page");
+const BoardsMenuPage = require("../pages/boardsmenu.page");
 
-    while (await newList.isDisplayed()) {
-      const editBtn = await $(
-        "//div[@data-testid='list-header'][.//h2[text()='New list']]//button[@data-testid='list-edit-menu-button']"
-      );
+class DeleteLists {
+  constructor() {
+    this.boardsMenuPage = new BoardsMenuPage();
+    this.activeBoard = new ActiveBoard();
+  }
+  async delete(boardName, listName) {
+    try {
+      await this.boardsMenuPage.open();
 
-      await editBtn.waitForClickable();
-      await editBtn.click();
+      await this.boardsMenuPage.board.selectBoard(boardName).click();
 
-      const closeList = await $(".js-close-list");
-      await closeList.click();
+      const listTitle = await this.activeBoard.getListByName(listName);
+      await listTitle.waitForDisplayed({ timeout: 2000 });
 
-      await browser.pause(500);
+      while (await listTitle.isDisplayed()) {
+        const listAction = await this.activeBoard.getListActions(listName);
+
+        await listAction.waitForClickable();
+        await listAction.click();
+
+        await this.activeBoard.boardBody.closeListButton.click();
+
+        await browser.pause(500);
+      }
+    } catch (error) {
+      console.error("Error deleting lists:", error);
     }
-  } catch (error) {
-    console.error("Error deleting lists:", error);
   }
 }
 
-module.exports = deleteLists;
+module.exports = DeleteLists;

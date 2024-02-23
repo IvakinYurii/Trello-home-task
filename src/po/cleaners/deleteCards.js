@@ -7,21 +7,21 @@ class DeleteCards {
     this.activeBoard = new ActiveBoard();
   }
 
-  async delete(cardName) {
+  async delete(boardName, cardName) {
     try {
-      await boardsMenuPage.open();
+      await this.boardsMenuPage.open();
 
-      await boardsMenuPage.board.selectBoard("newBoard").click();
+      await this.boardsMenuPage.board.selectBoard(boardName).click();
 
-      const newCard = await activeBoard.selectCard(cardName);
-      await newCard.waitForDisplayed({ timeout: 2000 });
+      const newCard = await this.activeBoard.selectCard(cardName);
+      await newCard.waitForDisplayed();
 
-      while (await activeBoard.isNewCardPresent(cardName)) {
+      while (await this.activeBoard.isNewCardPresent(cardName)) {
         await newCard.click();
 
-        await activeBoard.boardBody.cardAction("archive").click();
-        await activeBoard.boardBody.cardAction("deleteCard").click();
-        await activeBoard.boardBody.cardAction("submitButton").click();
+        await this.activeBoard.boardBody.cardAction("archive").click();
+        await this.activeBoard.boardBody.cardAction("deleteCard").click();
+        await this.activeBoard.boardBody.cardAction("submitButton").click();
 
         await browser.pause(500);
       }

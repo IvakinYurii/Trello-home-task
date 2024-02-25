@@ -15,9 +15,11 @@ const deleteLists = new DeleteLists();
 describe("Trello Board Functionality", () => {
   before(async () => {
     await userSignIn.signIn("ricago6218@giratex.com", "StrongPassword1234");
-    await closeBoards.close("myNewBoard");
-    await deleteCards.delete("newBoard", "New card");
-    await deleteLists.delete("newBoard", "New list");
+    if (browser.capabilities.browserName === "chrome") {
+      await closeBoards.close("myNewBoard");
+      await deleteCards.delete("newBoard", "New card");
+      await deleteLists.delete("newBoard", "New list");
+    }
   });
 
   it("new board should be created and displayed on your boards", async () => {

@@ -21,7 +21,7 @@ exports.config = {
   // of the config file unless it's absolute.
   //
   specs: [
-    "./../tests/**/*.js",
+    //"./../tests/**/*.js",
     //"./../tests/signUp.test.js",
     //"./../tests/signIn.test.js",
     //"./../tests/editProfile.test.js",

@@ -5,7 +5,7 @@ class BoardsMenuComponent {
 
   selectBoard(param) {
     const selectors = {
-      myNewBoard: "[title='My new board']",
+      myNewBoard: `[title='My new board ${browser.capabilities.browserName}']`,
       newBoard: "[title='New Board']",
       myTrelloBoard: "[title='My Trello board']",
     };

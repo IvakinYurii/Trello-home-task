@@ -13,13 +13,16 @@ const deleteCards = new DeleteCards();
 const deleteLists = new DeleteLists();
 
 describe("Trello Board Functionality", () => {
+  const browserName = browser.capabilities.browserName;
+
   before(async () => {
     await userSignIn.signIn("ricago6218@giratex.com", "StrongPassword1234");
-    if (browser.capabilities.browserName === "chrome") {
-      await closeBoards.close("myNewBoard");
-      await deleteCards.delete("newBoard", "New card");
-      await deleteLists.delete("newBoard", "New list");
-    }
+  });
+
+  after(async () => {
+    await closeBoards.close("myNewBoard");
+    await deleteCards.delete("newBoard", `New card ${browserName}`);
+    await deleteLists.delete("newBoard", `New list ${browserName}`);
   });
 
   it("new board should be created and displayed on your boards", async () => {
@@ -29,14 +32,16 @@ describe("Trello Board Functionality", () => {
 
     await boardsMenuPage.header.createOption("board").click();
 
-    await boardsMenuPage.header.createBoard("title").setValue("My new board");
+    await boardsMenuPage.header
+      .createBoard("title")
+      .setValue(`My new board ${browserName}`);
 
     await boardsMenuPage.header.createBoard("submitButton").waitForClickable();
     await boardsMenuPage.header.createBoard("submitButton").click();
 
     assert.strictEqual(
       await activeBoard.boardHeader.item("title").getText(),
-      "My new board"
+      `My new board ${browserName}`
     );
   });
 
@@ -47,11 +52,15 @@ describe("Trello Board Functionality", () => {
 
     await activeBoard.boardBody.button("addCard").click();
 
-    await activeBoard.boardBody.createCard("title").setValue("New card");
+    await activeBoard.boardBody
+      .createCard("title")
+      .setValue(`New card ${browserName}`);
 
     await activeBoard.boardBody.createCard("addCardButton").click();
 
-    const isNewCardPresent = await activeBoard.isNewCardPresent("New card");
+    const isNewCardPresent = await activeBoard.isNewCardPresent(
+      `New card ${browserName}`
+    );
 
     isNewCardPresent.should.be.true;
   });
@@ -63,11 +72,13 @@ describe("Trello Board Functionality", () => {
 
     await activeBoard.boardBody.button("addList").click();
 
-    await activeBoard.boardBody.createList("title").setValue("New list");
+    await activeBoard.boardBody
+      .createList("title")
+      .setValue(`New list ${browserName}`);
 
     await activeBoard.boardBody.createList("addListButton").click();
 
-    const listName = await activeBoard.getListByName("New list");
+    const listName = await activeBoard.getListByName(`New list ${browserName}`);
 
     await wdioExpect(listName).toBeDisplayed();
   });
@@ -83,6 +94,6 @@ describe("Trello Board Functionality", () => {
 
     const filteredCard = await activeBoard.isFilterCardDisplayed();
 
-    expect(await filteredCard).to.equal(true);
+    expect(filteredCard).to.equal(true);
   });
 });

@@ -1,12 +1,15 @@
-const SignInUser = require("../configs/signInUser.js");
+const LoginPage = require("../po/pages/login.page.js");
 const BoardsMenuPage = require("../po/pages/boardsmenu.page.js");
 
-const userSignIn = new SignInUser();
+const userSignIn = new LoginPage();
 const boardsMenuPage = new BoardsMenuPage();
 
 describe("Search for a Board", () => {
   before(async () => {
-    await userSignIn.signIn("ricago6218@giratex.com", "StrongPassword1234");
+    await userSignIn.signIn(
+      process.env.LOGIN_EMAIL,
+      process.env.LOGIN_PASSWORD
+    );
   });
 
   it("search results should display the board being searched for", async () => {

@@ -1,12 +1,15 @@
-const SignInUser = require("../configs/signInUser.js");
+const LoginPage = require("../po/pages/login.page.js");
 const SettingsPage = require("../po/pages/settings.page.js");
 
-const userSignIn = new SignInUser();
+const userSignIn = new LoginPage();
 const settingsPage = new SettingsPage();
 
 describe("Edit User Profile", () => {
   before(async () => {
-    await userSignIn.signIn("ricago6218@giratex.com", "StrongPassword1234");
+    await userSignIn.signIn(
+      process.env.LOGIN_EMAIL,
+      process.env.LOGIN_PASSWORD
+    );
   });
 
   it("profile should be updated successfully", async () => {

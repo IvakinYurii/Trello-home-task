@@ -21,7 +21,7 @@ exports.config = {
   // of the config file unless it's absolute.
   //
   specs: [
-    //"./../tests/**/*.js",
+    "./../tests/**/*.js",
     //"./../tests/signUp.test.js",
     //"./../tests/signIn.test.js",
     //"./../tests/editProfile.test.js",
@@ -60,7 +60,7 @@ exports.config = {
 
       "goog:chromeOptions": {
         args: [
-          //"headless", "disable-gpu"
+          //"headless", "disable-gpu", "window-size=1280,960"
         ],
         prefs: {
           "intl.accept_languages": "en-US,en",
@@ -68,16 +68,16 @@ exports.config = {
       },
     },
 
-    {
-      browserName: "firefox",
+    // {
+    //   browserName: "firefox",
 
-      "moz:firefoxOptions": {
-        args: ["-headless"],
-        prefs: {
-          "intl.accept_languages": "en-US,en",
-        },
-      },
-    },
+    //   "moz:firefoxOptions": {
+    //     args: ["-headless"],
+    //     prefs: {
+    //       "intl.accept_languages": "en-US,en",
+    //     },
+    //   },
+    // },
 
     /** 
     {
@@ -151,7 +151,7 @@ exports.config = {
 
   //
   // The number of times to retry the entire specfile when it fails as a whole
-  specFileRetries: 1,
+  specFileRetries: 0,
   //
   // Delay in seconds between the spec file retry attempts
   // specFileRetriesDelay: 0,

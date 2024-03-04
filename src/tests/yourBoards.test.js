@@ -1,11 +1,11 @@
-const SignInUser = require("../configs/signInUser.js");
+const LoginPage = require("../po/pages/login.page.js");
 const BoardsMenuPage = require("../po/pages/boardsmenu.page.js");
 const ActiveBoard = require("../po/pages/activeboard.page.js");
 const CloseBoards = require("../po/cleaners/closeBoards.js");
 const DeleteCards = require("../po/cleaners/deleteCards.js");
 const DeleteLists = require("../po/cleaners/deleteLists.js");
 
-const userSignIn = new SignInUser();
+const userSignIn = new LoginPage();
 const boardsMenuPage = new BoardsMenuPage();
 const activeBoard = new ActiveBoard();
 const closeBoards = new CloseBoards();
@@ -16,7 +16,10 @@ describe("Trello Board Functionality", () => {
   const browserName = browser.capabilities.browserName;
 
   before(async () => {
-    await userSignIn.signIn("ricago6218@giratex.com", "StrongPassword1234");
+    await userSignIn.signIn(
+      process.env.LOGIN_EMAIL,
+      process.env.LOGIN_PASSWORD
+    );
   });
 
   after(async () => {

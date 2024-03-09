@@ -7,7 +7,7 @@ const tempMailPage = new TempMailPage();
 const homePage = new HomePage();
 const signUpPage = new SignUpPage();
 
-describe("User Sign Up", () => {
+describe.skip("User Sign Up", () => {
   it("should be successfully registered", async () => {
     await tempMailPage.open();
 

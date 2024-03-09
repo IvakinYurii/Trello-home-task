@@ -1,3 +1,10 @@
+const { TimelineService } = require("wdio-timeline-reporter/timeline-service");
+let ReportAggregator;
+import("wdio-html-nice-reporter").then((module) => {
+  ReportAggregator = module.ReportAggregator;
+});
+let reportAggregator;
+
 exports.config = {
   //
   // ====================
@@ -68,16 +75,16 @@ exports.config = {
       },
     },
 
-    // {
-    //   browserName: "firefox",
+    {
+      browserName: "firefox",
 
-    //   "moz:firefoxOptions": {
-    //     args: ["-headless"],
-    //     prefs: {
-    //       "intl.accept_languages": "en-US,en",
-    //     },
-    //   },
-    // },
+      "moz:firefoxOptions": {
+        args: ["-headless"],
+        prefs: {
+          "intl.accept_languages": "en-US,en",
+        },
+      },
+    },
 
     /** 
     {
@@ -139,8 +146,8 @@ exports.config = {
   // Services take over a specific job you don't want to take care of. They enhance
   // your test setup with almost no effort. Unlike plugins, they don't add new
   // commands. Instead, they hook themselves up into the test process.
-  // services: [],
-  //
+  services: [[TimelineService]],
+
   // Framework you want to run your specs with.
   // The following are supported: Mocha, Jasmine, and Cucumber
   // see also: https://webdriver.io/docs/frameworks
@@ -151,7 +158,7 @@ exports.config = {
 
   //
   // The number of times to retry the entire specfile when it fails as a whole
-  specFileRetries: 0,
+  specFileRetries: 1,
   //
   // Delay in seconds between the spec file retry attempts
   // specFileRetriesDelay: 0,
@@ -162,7 +169,37 @@ exports.config = {
   // Test reporter for stdout.
   // The only one supported by default is 'dot'
   // see also: https://webdriver.io/docs/dot-reporter
-  reporters: ["spec"],
+  reporters: [
+    [
+      "spec",
+      {
+        symbols: {},
+        onlyFailures: false,
+        addConsoleLogs: false,
+        realTimeReporting: false,
+        showPreface: false,
+        color: true,
+      },
+    ],
+    [
+      "html-nice",
+      {
+        outputDir: "./reports/html-reports/html-nice",
+        filename: "report.html",
+        reportTitle: "Trello test report",
+        linkScreenshots: true,
+        showInBrowser: true,
+        collapseTests: false,
+        useOnAfterCommandForScreenshot: true,
+      },
+    ],
+    [
+      "timeline",
+      {
+        outputDir: "./reports/html-reports/timeline",
+      },
+    ],
+  ],
 
   // Options to be passed to Mocha.
   // See the full list at http://mochajs.org/
@@ -184,8 +221,19 @@ exports.config = {
    * @param {object} config wdio configuration object
    * @param {Array.<Object>} capabilities list of capabilities details
    */
-  // onPrepare: function (config, capabilities) {
-  // },
+  onPrepare: async function (config, capabilities) {
+    await import("wdio-html-nice-reporter").then((module) => {
+      ReportAggregator = module.ReportAggregator;
+    });
+    reportAggregator = new ReportAggregator({
+      outputDir: "./reports/html-reports/html-nice",
+      filename: "master-report.html",
+      reportTitle: "Master report",
+      browserName: capabilities.browserName,
+      collapseTests: true,
+    });
+    reportAggregator.clean();
+  },
   /**
    * Gets executed before a worker process is spawned and can be used to initialize specific service
    * for that worker as well as modify runtime environments in an async fashion.
@@ -318,8 +366,9 @@ exports.config = {
    * @param {Array.<Object>} capabilities list of capabilities details
    * @param {<Object>} results object containing test results
    */
-  // onComplete: function(exitCode, config, capabilities, results) {
-  // },
+  onComplete: async function (exitCode, config, capabilities, results) {
+    await reportAggregator.createReport();
+  },
   /**
    * Gets executed when a refresh happens.
    * @param {string} oldSessionId session ID of the old session

@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "wdio run ./src/configs/wdio.conf.js"
+    "test": "wdio run ./src/configs/wdio.conf.js",
+    "format": "prettier --write .",
+    "lint": "eslint ."
   },
   "author": "Yurii Ivakin",
   "license": "ISC",
@@ -15,7 +17,12 @@
     "@wdio/mocha-framework": "^8.32.3",
     "@wdio/spec-reporter": "^8.32.2",
     "chai": "^5.1.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-chai-friendly": "^0.7.4",
+    "eslint-plugin-wdio": "^8.24.12",
     "expect-webdriverio": "^4.11.8",
+    "prettier": "3.2.5",
     "wdio-html-nice-reporter": "^8.1.6",
     "wdio-timeline-reporter": "^5.1.4"
   }

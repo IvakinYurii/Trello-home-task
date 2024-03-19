@@ -6,7 +6,7 @@ class HeaderComponent {
       starred: "[title='Starred']",
       templates: "[title='Templates']",
       create: "[aria-label='Create board or Workspace']",
-      searchBar: "input[placeholder='Search']",
+      searchBar: "input[placeholder*='Search']",
     };
     return $(selectors[param]);
   }

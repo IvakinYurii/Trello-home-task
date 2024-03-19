@@ -67,7 +67,7 @@ exports.config = {
 
       "goog:chromeOptions": {
         args: [
-          //"headless", "disable-gpu", "window-size=1280,960"
+          //"headless", "disable-gpu", "window-size=1980,1080"
         ],
         prefs: {
           "intl.accept_languages": "en-US,en",

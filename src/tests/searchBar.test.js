@@ -15,6 +15,10 @@ describe("Search for a Board", () => {
   it("search results should display the board being searched for", async () => {
     await boardsMenuPage.open();
 
+    await boardsMenuPage.header.menu("searchBar").click();
+
+    await browser.pause(1000);
+
     await boardsMenuPage.header.menu("searchBar").setValue("My Trello board");
 
     await boardsMenuPage.header.searchResult.waitForDisplayed();

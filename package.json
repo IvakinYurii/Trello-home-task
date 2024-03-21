@@ -12,7 +12,9 @@
   "license": "ISC",
   "keywords": [],
   "devDependencies": {
+    "@cucumber/cucumber": "^9.5.1",
     "@wdio/cli": "^8.32.3",
+    "@wdio/cucumber-framework": "^8.35.0",
     "@wdio/local-runner": "^8.32.3",
     "@wdio/mocha-framework": "^8.32.3",
     "@wdio/spec-reporter": "^8.32.2",

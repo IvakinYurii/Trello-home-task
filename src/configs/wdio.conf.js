@@ -28,12 +28,12 @@ exports.config = {
   // of the config file unless it's absolute.
   //
   specs: [
-    "./../tests/**/*.js",
-    //"./../tests/signUp.test.js",
-    //"./../tests/signIn.test.js",
-    //"./../tests/editProfile.test.js",
-    //"./../tests/yourBoards.test.js",
-    //"./../tests/searchBar.test.js",
+    "./../tests/**/*.feature",
+    //"./../tests/signUp.test.feature",
+    //"./../tests/signIn.test.feature",
+    //"./../tests/editProfile.test.feature",
+    //"./../tests/yourBoards.test.feature",
+    //"./../tests/searchBar.test.feature",
   ],
   // Patterns to exclude.
   exclude: [
@@ -55,7 +55,7 @@ exports.config = {
   // and 30 processes will get spawned. The property handles how many capabilities
   // from the same test should run tests.
   //
-  maxInstances: 2,
+  maxInstances: 1,
   //
   // If you have trouble getting all important capabilities together, check out the
   // Sauce Labs platform configurator - a great tool to configure your capabilities:
@@ -75,16 +75,16 @@ exports.config = {
       },
     },
 
-    {
-      browserName: "firefox",
+    // {
+    //   browserName: "firefox",
 
-      "moz:firefoxOptions": {
-        args: ["-headless"],
-        prefs: {
-          "intl.accept_languages": "en-US,en",
-        },
-      },
-    },
+    //   "moz:firefoxOptions": {
+    //     args: ["-headless"],
+    //     prefs: {
+    //       "intl.accept_languages": "en-US,en",
+    //     },
+    //   },
+    // },
 
     /** 
     {
@@ -154,11 +154,11 @@ exports.config = {
   //
   // Make sure you have the wdio adapter package for the specific framework installed
   // before running any tests.
-  framework: "mocha",
+  framework: "cucumber",
 
   //
   // The number of times to retry the entire specfile when it fails as a whole
-  specFileRetries: 1,
+  specFileRetries: 0,
   //
   // Delay in seconds between the spec file retry attempts
   // specFileRetriesDelay: 0,
@@ -203,11 +203,21 @@ exports.config = {
 
   // Options to be passed to Mocha.
   // See the full list at http://mochajs.org/
-  mochaOpts: {
-    ui: "bdd",
-    timeout: 60000,
-  },
 
+  cucumberOpts: {
+    require: ["./src/tests/step-definitions/*.js"],
+    backtrace: false,
+    requireModule: [],
+    dryRun: false,
+    restart: true,
+    failFast: false,
+    snippets: true,
+    source: true,
+    strict: false,
+    tagExpression: "not @skip",
+    timeout: 60000,
+    ignoreUndefinedDefinitions: false,
+  },
   //
   // =====
   // Hooks

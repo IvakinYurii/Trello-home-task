@@ -55,7 +55,7 @@ exports.config = {
   // and 30 processes will get spawned. The property handles how many capabilities
   // from the same test should run tests.
   //
-  maxInstances: 1,
+  maxInstances: 2,
   //
   // If you have trouble getting all important capabilities together, check out the
   // Sauce Labs platform configurator - a great tool to configure your capabilities:
@@ -75,16 +75,16 @@ exports.config = {
       },
     },
 
-    // {
-    //   browserName: "firefox",
+    {
+      browserName: "firefox",
 
-    //   "moz:firefoxOptions": {
-    //     args: ["-headless"],
-    //     prefs: {
-    //       "intl.accept_languages": "en-US,en",
-    //     },
-    //   },
-    // },
+      "moz:firefoxOptions": {
+        args: ["-headless"],
+        prefs: {
+          "intl.accept_languages": "en-US,en",
+        },
+      },
+    },
 
     /** 
     {
@@ -158,7 +158,7 @@ exports.config = {
 
   //
   // The number of times to retry the entire specfile when it fails as a whole
-  specFileRetries: 0,
+  specFileRetries: 1,
   //
   // Delay in seconds between the spec file retry attempts
   // specFileRetriesDelay: 0,

@@ -1,4 +1,4 @@
-const { Before, After, Given, When, Then } = require("@cucumber/cucumber");
+const { Given, When, Then } = require("@cucumber/cucumber");
 const { Key } = require("webdriverio");
 const TempMailPage = require("../../po/pages/tempmail.page");
 const HomePage = require("../../po/pages/home.page");
@@ -8,15 +8,7 @@ const tempMailPage = new TempMailPage();
 const homePage = new HomePage();
 const signUpPage = new SignUpPage();
 
-Before(async function () {
-  await browser.deleteCookies();
-});
-
-After(async function () {
-  await browser.deleteCookies();
-});
-
-Given(/^user is on signup page$/, async () => {
+Given(/^user is on sign up page$/, async () => {
   await tempMailPage.open();
 
   if (browser.capabilities.browserName === "firefox") {

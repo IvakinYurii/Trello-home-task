@@ -1,6 +1,6 @@
 Feature: Test Edit Profile functionality
 
-  @skip
+  @EditProfile
   Scenario: Edit User Profile
     Given user is on settings page
     When it updates profile information
